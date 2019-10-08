@@ -2,6 +2,8 @@ FROM ubuntu:latest
 
 MAINTAINER morizyun <@zyunnosuke>
 
+ENV NODE_MAJOR_VERSION 12
+
 # For Japan
 RUN sed -i -E "s@http://(archive|security)\.ubuntu\.com/ubuntu/@http://ftp.jaist.ac.jp/pub/Linux/ubuntu/@g" /etc/apt/sources.list
 
@@ -9,7 +11,7 @@ RUN sed -i -E "s@http://(archive|security)\.ubuntu\.com/ubuntu/@http://ftp.jaist
 RUN apt-get update \
     && apt-get install -y sudo curl wget zip unzip git nodejs npm fontconfig \
     && apt-get purge -y nodejs npm \
-    && curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - \
+    && curl -sL "https://deb.nodesource.com/setup_${NODE_MAJOR_VERSION}.x" | sudo -E bash - \
     && apt-get install -y nodejs \
     && npm install -g yarn
 
